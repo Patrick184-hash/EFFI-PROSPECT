@@ -29,6 +29,13 @@ jobs:
       - name: Installer les dépendances
         run: npm ci
 
+      - name: Modifier vite.config.ts
+        run: |
+          if [ -f "vite.config.ts" ]; then
+            # Si le fichier utilise export default defineConfig({...})
+            sed -i 's/export default defineConfig({/export default defineConfig({\n  base: '\''\.\/'\'',' vite.config.ts
+          fi
+      
       - name: Build du projet
         run: npm run build  # Génère le dossier /dist
 
